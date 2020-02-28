@@ -61,7 +61,6 @@ class ViewController: UIViewController {
         logger(title: "Stop")
     }
     @IBAction func btnHistory(_ sender: Any) {
-        historyFileReader()
     }
     @IBAction func btnSetting(_ sender: Any) {
     }
@@ -86,11 +85,8 @@ class ViewController: UIViewController {
     
     func logger(title: String) {
         let date = NSDate()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss EEE"
-        print(title, formatter.string(from: date as Date))
         
-        let logStr = "\(title),\(formatter.string(from: date as Date))\n"
+        let logStr = "\(title),\(Int(date.timeIntervalSince1970))\n"
         
         let file = "history.txt"
         
@@ -104,12 +100,11 @@ class ViewController: UIViewController {
                     // history.txt 파일이 없다면  생성
                     print(fileURL, fileURL.path)
                     try "".write(to: fileURL, atomically: false, encoding: .utf8)
-                } else {
-                    // history.txt 파일이 있다면 기존 파일에 로그 추가
-                    let fileHandle = try FileHandle(forWritingTo: fileURL)
-                    fileHandle.seekToEndOfFile()
-                    fileHandle.write(logStr.data(using: .utf8)!)
                 }
+                // history.txt 파일에 기존 파일에 로그 추가
+                let fileHandle = try FileHandle(forWritingTo: fileURL)
+                fileHandle.seekToEndOfFile()
+                fileHandle.write(logStr.data(using: .utf8)!)
             } catch   {
                 print(error)
             }
@@ -117,27 +112,7 @@ class ViewController: UIViewController {
         }
         
     }
-    
-    func historyFileReader(){
-        let file = "history.txt"
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = dir.appendingPathComponent(file)
-            
-            let isFileExist: Bool = FileManager.default.fileExists(atPath: fileURL.path)
-            
-            do {
-                if !isFileExist {
-                    print("no file")
-                } else {
-                    let str = try String(contentsOf: fileURL, encoding: .utf8)
-                    print(str)
-                }
-            } catch   {
-                print(error)
-            }
-        }
-    }
+
 
 }
 
