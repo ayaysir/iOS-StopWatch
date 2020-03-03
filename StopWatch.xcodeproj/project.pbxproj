@@ -21,6 +21,8 @@
 		449FCF992406AAC200AF983C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FCF982406AAC200AF983C /* ExtensionDelegate.swift */; };
 		449FCF9B2406AAC200AF983C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FCF9A2406AAC200AF983C /* NotificationController.swift */; };
 		449FCF9D2406AAC500AF983C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 449FCF9C2406AAC500AF983C /* Assets.xcassets */; };
+		449FCFAE2409518B00AF983C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FCFAD2409518B00AF983C /* HistoryViewController.swift */; };
+		449FCFB0240EA6B200AF983C /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FCFAF240EA6B200AF983C /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		449FCF9C2406AAC500AF983C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		449FCF9E2406AAC500AF983C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		449FCF9F2406AAC500AF983C /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		449FCFAD2409518B00AF983C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		449FCFAF240EA6B200AF983C /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,8 @@
 				449FCF7A2406AABF00AF983C /* Assets.xcassets */,
 				449FCF7C2406AABF00AF983C /* LaunchScreen.storyboard */,
 				449FCF7F2406AABF00AF983C /* Info.plist */,
+				449FCFAD2409518B00AF983C /* HistoryViewController.swift */,
+				449FCFAF240EA6B200AF983C /* SettingViewController.swift */,
 			);
 			path = StopWatch;
 			sourceTree = "<group>";
@@ -294,9 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449FCFB0240EA6B200AF983C /* SettingViewController.swift in Sources */,
 				449FCF762406AAB700AF983C /* ViewController.swift in Sources */,
 				449FCF722406AAB700AF983C /* AppDelegate.swift in Sources */,
 				449FCF742406AAB700AF983C /* SceneDelegate.swift in Sources */,
+				449FCFAE2409518B00AF983C /* HistoryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,7 +566,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bgsmm.StopWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -575,7 +583,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bgsmm.StopWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
