@@ -8,6 +8,41 @@
 
 import UIKit
 
+struct Preferences: Codable {
+    var fontOfTime: String
+    var colorOfTime: String
+    var sizeOfTime: Float
+}
+
+
+// plist test
+let prefPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Preferences.plist")
+
+func updatePref(font: String, color: String, size: Float) {
+    let preferences = Preferences(fontOfTime: font, colorOfTime: color, sizeOfTime: size)
+    let encoder = PropertyListEncoder()
+    encoder.outputFormat = .xml
+    
+    do {
+        let data = try encoder.encode(preferences)
+        try data.write(to: prefPath)
+    } catch {
+        print(error)
+    }
+}
+
+func readPref() -> Preferences? {
+    // plist read
+    if
+        let xml = FileManager.default.contents(atPath: prefPath.path),
+        let preferences = try? PropertyListDecoder().decode(Preferences.self, from: xml) {
+        
+        return preferences
+    }
+    
+    return nil
+}
+
 class ViewController: UIViewController {
     
     var isTimerOn: Bool = false
@@ -16,7 +51,7 @@ class ViewController: UIViewController {
     var timer: Timer?
     
     let timeSelector: Selector = #selector(ViewController.updateTime)
-
+    
     @IBOutlet var lblTime: UILabel!
     @IBOutlet var btnStartOutlet: UIButton!
     @IBOutlet var btnStopOutlet: UIButton!
@@ -24,13 +59,34 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         btnStopOutlet.isEnabled = false
+        
+        
+        let isFileExist: Bool = FileManager.default.fileExists(atPath: prefPath.path)
+        
+        if !isFileExist {
+            updatePref(font: "Courier", color: "blue", size: 60.0)
+        }
+        
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let prefs = readPref()!
+            
+        // font size
+        lblTime.font = UIFont(name: prefs.fontOfTime, size: CGFloat(prefs.sizeOfTime))
+
+        
+    }
+    
     @IBAction func btnStartAction(_ sender: Any) {
         
         if isTimerOn == false {
             // 최초 시작
             isTimerOn = true
             btnStartOutlet.setTitle("Pause", for: .normal)
+            lblTime.text = timeFormatter(currentTimeCount)
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: timeSelector, userInfo: nil, repeats: true)
             // stop 버튼 활성화
             btnStopOutlet.isEnabled = true
@@ -55,14 +111,10 @@ class ViewController: UIViewController {
         isTimerOn = false
         btnStartOutlet.setTitle("Start", for: .normal)
         currentTimeCount = 0
-        lblTime.text = timeFormatter(currentTimeCount)
+        //lblTime.text = timeFormatter(currentTimeCount)
         // stop 버튼 비활성화
         btnStopOutlet.isEnabled = false
         logger(title: "Stop")
-    }
-    @IBAction func btnHistory(_ sender: Any) {
-    }
-    @IBAction func btnSetting(_ sender: Any) {
     }
     
     @objc func updateTime(){
@@ -112,7 +164,7 @@ class ViewController: UIViewController {
         }
         
     }
-
-
+    
+    
 }
 
