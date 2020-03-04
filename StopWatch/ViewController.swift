@@ -10,7 +10,7 @@ import UIKit
 
 struct Preferences: Codable {
     var fontOfTime: String
-    var colorOfTime: String
+    var colorOfTime: Int
     var sizeOfTime: Float
 }
 
@@ -18,7 +18,7 @@ struct Preferences: Codable {
 // plist test
 let prefPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("Preferences.plist")
 
-func updatePref(font: String, color: String, size: Float) {
+func updatePref(font: String, color: Int, size: Float) {
     let preferences = Preferences(fontOfTime: font, colorOfTime: color, sizeOfTime: size)
     let encoder = PropertyListEncoder()
     encoder.outputFormat = .xml
@@ -43,6 +43,18 @@ func readPref() -> Preferences? {
     return nil
 }
 
+
+func UIColorFromHex(rgbValue: Int) -> UIColor {
+    let red = CGFloat((rgbValue & 0xFF0000) >> 16) / 0xFF
+    let green = CGFloat((rgbValue & 0x00FF00) >> 8) / 0xFF
+    let blue = CGFloat((rgbValue & 0x0000FF)) / 0xFF
+    let alpha = CGFloat(1.0)
+    
+    
+    return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+}
+
+
 class ViewController: UIViewController {
     
     var isTimerOn: Bool = false
@@ -64,7 +76,7 @@ class ViewController: UIViewController {
         let isFileExist: Bool = FileManager.default.fileExists(atPath: prefPath.path)
         
         if !isFileExist {
-            updatePref(font: "Courier", color: "blue", size: 60.0)
+            updatePref(font: "Courier", color: 0x000000, size: 60.0)
         }
         
         
@@ -76,6 +88,9 @@ class ViewController: UIViewController {
             
         // font size
         lblTime.font = UIFont(name: prefs.fontOfTime, size: CGFloat(prefs.sizeOfTime))
+        
+        // font color
+        lblTime.textColor = UIColorFromHex(rgbValue: prefs.colorOfTime)
 
         
     }

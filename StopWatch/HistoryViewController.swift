@@ -20,6 +20,7 @@ class HistoryViewController: UIViewController {
         tblDataList.dataSource = self
         tblDataList.delegate = self
         
+        scrollToBottom()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -71,6 +72,12 @@ class HistoryViewController: UIViewController {
         return formatter.string(from: date as Date)
     }
     
+    func scrollToBottom() {
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: historyArr.count - 1, section: 0)
+            self.tblDataList.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
+    }
 
 
     /*
