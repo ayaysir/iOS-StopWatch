@@ -79,6 +79,9 @@ class ViewController: UIViewController {
             updatePref(font: "Courier", color: 0x000000, size: 60.0)
         }
         
+        lblTime.text = timeFormatter(0)
+        
+    
         
     }
     
@@ -87,10 +90,26 @@ class ViewController: UIViewController {
         let prefs = readPref()!
             
         // font size
-        lblTime.font = UIFont(name: prefs.fontOfTime, size: CGFloat(prefs.sizeOfTime))
+        //lblTime.font = UIFont(name: prefs.fontOfTime, size: CGFloat(prefs.sizeOfTime))
         
         // font color
         lblTime.textColor = UIColorFromHex(rgbValue: prefs.colorOfTime)
+        
+        // 래이블 monospace화 하기
+        let bodyFontDescriptor = UIFontDescriptor.init(name: prefs.fontOfTime, size: CGFloat(prefs.sizeOfTime))
+            let bodyMonospacedNumbersFontDescriptor = bodyFontDescriptor.addingAttributes(
+                [
+                    UIFontDescriptor.AttributeName.featureSettings: [
+                        [
+                            UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
+                            UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector
+                        ]
+                    ]
+                ])
+
+            let bodyMonospacedNumbersFont = UIFont(descriptor: bodyMonospacedNumbersFontDescriptor, size: CGFloat(prefs.sizeOfTime))
+
+            lblTime.font = bodyMonospacedNumbersFont
 
         
     }
@@ -102,6 +121,7 @@ class ViewController: UIViewController {
             isTimerOn = true
             btnStartOutlet.setTitle("Pause", for: .normal)
             lblTime.text = timeFormatter(currentTimeCount)
+            
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: timeSelector, userInfo: nil, repeats: true)
             // stop 버튼 활성화
             btnStopOutlet.isEnabled = true

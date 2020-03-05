@@ -8,6 +8,8 @@
 
 import UIKit
 
+var availableFontList = [String]()
+
 class SettingViewController: UIViewController {
     
     // RRGGBB hex colors in the same order as the image
@@ -16,6 +18,7 @@ class SettingViewController: UIViewController {
     @IBOutlet var slFontSize: UISlider!
     @IBOutlet var slFontColor: UISlider!
     @IBOutlet var selectedColorView: UIView!
+    @IBOutlet var pkvFontList: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,29 +26,47 @@ class SettingViewController: UIViewController {
         slFontSize.maximumValue = 70
         slFontSize.minimumValue = 20
         
+        // get all font list
+        for family in UIFont.familyNames {
+            print("\(family)")
+            availableFontList.append(family)
+            
+            for name in UIFont.fontNames(forFamilyName: family) {
+                print("\t\(name)")
+            }
+        }
+        
+        availableFontList.sort()
+        
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         let prefs = readPref()
+        
         slFontSize.setValue(prefs!.sizeOfTime, animated: false)
+        
         if let i = colorArray.firstIndex(where: {$0 == prefs!.colorOfTime}) {
             slFontColor.setValue(Float(i), animated: false)
             selectedColorView.backgroundColor = UIColorFromHex(rgbValue: prefs!.colorOfTime)
         }
         
+        if let i = availableFontList.firstIndex(where: {$0 == prefs!.fontOfTime}) {
+            pkvFontList.selectRow(i, inComponent: 0, animated: false)
+        }
+        
     }
     
     @IBAction func slFontSize(_ sender: UISlider) {
-        print(sender.value)
+        // print(sender.value)
         let prefs = readPref()
         updatePref(font: prefs!.fontOfTime, color: prefs!.colorOfTime, size: sender.value)
     }
     
     @IBAction func slFontColor(_ sender: UISlider) {
         selectedColorView.backgroundColor = UIColorFromHex(rgbValue: colorArray[Int(sender.value)])
-        print(sender.value, Int(sender.value))
+        // print(sender.value, Int(sender.value))
         
         let prefs = readPref()
         updatePref(font: prefs!.fontOfTime, color: colorArray[Int(sender.value)], size: prefs!.sizeOfTime)
@@ -62,4 +83,31 @@ class SettingViewController: UIViewController {
     }
     */
 
+}
+
+extension SettingViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return availableFontList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let prefs = readPref()
+        updatePref(font: availableFontList[row], color: prefs!.colorOfTime, size: prefs!.sizeOfTime)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let pickerLabel = UILabel()
+        pickerLabel.font = UIFont(name: availableFontList[row], size: CGFloat(20))
+        pickerLabel.text = availableFontList[row]
+        pickerLabel.textAlignment = .center
+        return pickerLabel
+    }
+    
+    
+    
 }

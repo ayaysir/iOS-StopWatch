@@ -72,6 +72,7 @@ class HistoryViewController: UIViewController {
         return formatter.string(from: date as Date)
     }
     
+    // 스크롤 목록의 맨 밑으로 내리기
     func scrollToBottom() {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: historyArr.count - 1, section: 0)
