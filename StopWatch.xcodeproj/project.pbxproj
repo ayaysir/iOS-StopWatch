@@ -23,6 +23,8 @@
 		449FCF9D2406AAC500AF983C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 449FCF9C2406AAC500AF983C /* Assets.xcassets */; };
 		449FCFAE2409518B00AF983C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FCFAD2409518B00AF983C /* HistoryViewController.swift */; };
 		449FCFB0240EA6B200AF983C /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449FCFAF240EA6B200AF983C /* SettingViewController.swift */; };
+		449FCFB2240FF43900AF983C /* color.png in Resources */ = {isa = PBXBuildFile; fileRef = 449FCFB1240FF43800AF983C /* color.png */; };
+		449FCFB4240FFCFC00AF983C /* color_crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 449FCFB3240FFCFC00AF983C /* color_crop.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		449FCF9F2406AAC500AF983C /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		449FCFAD2409518B00AF983C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		449FCFAF240EA6B200AF983C /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		449FCFB1240FF43800AF983C /* color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color.png; sourceTree = "<group>"; };
+		449FCFB3240FFCFC00AF983C /* color_crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color_crop.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +136,8 @@
 		449FCF702406AAB700AF983C /* StopWatch */ = {
 			isa = PBXGroup;
 			children = (
+				449FCFB3240FFCFC00AF983C /* color_crop.png */,
+				449FCFB1240FF43800AF983C /* color.png */,
 				449FCF712406AAB700AF983C /* AppDelegate.swift */,
 				449FCF732406AAB700AF983C /* SceneDelegate.swift */,
 				449FCF752406AAB700AF983C /* ViewController.swift */,
@@ -272,6 +278,8 @@
 			files = (
 				449FCF7E2406AABF00AF983C /* LaunchScreen.storyboard in Resources */,
 				449FCF7B2406AABF00AF983C /* Assets.xcassets in Resources */,
+				449FCFB4240FFCFC00AF983C /* color_crop.png in Resources */,
+				449FCFB2240FF43900AF983C /* color.png in Resources */,
 				449FCF792406AAB700AF983C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
